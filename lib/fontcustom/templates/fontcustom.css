@@ -4,10 +4,12 @@
 
 @font-face {
   font-family: "<%= @name %>";
-  src: url("<%= @path %>.eot?#iefix") format("embedded-opentype"),
+/*  src: url("<%= @path %>.eot?#iefix") format("embedded-opentype"),
        url("<%= @path %>.woff") format("woff"),
        url("<%= @path %>.ttf") format("truetype"),
-       url("<%= @path %>.svg#<%= @name %>") format("svg");
+       url("<%= @path %>.svg#<%= @name %>") format("svg");*/
+  src: <%= @fonturls %>;
+
   font-weight: normal;
   font-style: normal;
 }

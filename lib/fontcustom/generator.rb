@@ -1,5 +1,6 @@
 require 'json'
 require 'thor/group'
+require 'base64'
 
 module Fontcustom
   class Generator < Thor::Group
@@ -111,21 +112,21 @@ module Fontcustom
       # reorder the fontface hash
       order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
       inline = (options.inline) ? options.inline.split(",") : []
-
       reorder = {}
-      order.each do |type|
-        if(type in inline)
-        fontstring = @fontface[type.to_sym]
-        
-        # if inline specified, inline the fonts
-        # data:font/opentype;base64,[base-encoded font here]
 
+      order.each do |type|
+        if(inline.include?(type))
+          fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
+          contents = File.read(fontpath)
+          encoded_contents = Base64.encode64(contents)  
+          fontstring = "data:font/opentype;base64," + encoded_contents 
+        else
+          fontstring = @fontface[type.to_sym]
+        end
         reorder[f.to_sym] = fontstring
       end
 
-
-      # pass the vars along for use in the stylesheet
-
+      @fonturls = reorder.join(";\n");
       say_status(:create, 'building fontface')
     end
 
