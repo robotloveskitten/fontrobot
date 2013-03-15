@@ -123,7 +123,7 @@ module Fontcustom
         else
           fontstring = @fontface[type.to_sym]
         end
-        reorder[f.to_sym] = fontstring
+        reorder[type.to_sym] = fontstring
       end
 
       @fonturls = reorder.join(";\n");
