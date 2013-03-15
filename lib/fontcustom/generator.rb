@@ -126,7 +126,7 @@ module Fontcustom
         reorder[type.to_sym] = fontstring
       end
 
-      @fonturls = reorder.join(";\n");
+      @fonturls = reorder.map{|k,v| v }.join(";\n");
       say_status(:create, 'building fontface')
     end
 
