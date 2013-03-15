@@ -11,9 +11,15 @@ module Fontcustom
     class_option :output, :aliases => '-o'
     class_option :name, :aliases => '-n'
     class_option :font_path, :aliases => '-f'
+
+    class_option :order,      :aliases => '-r' # 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'
+    class_option :inline,     :aliases => '-i' # 'Inline font as data-uri in @font-face. Default: none. Format: "eot,ttf,woff,svg"'
+    class_option :extension,  :aliases => '-e' # 'Specify file extension for css output. Default: "css".'
+
     class_option :nohash, :type => :boolean, :default => false
     class_option :debug, :type => :boolean, :default => false
     class_option :html, :type => :boolean, :default => false
+
 
     def self.source_root
       File.dirname(__FILE__)
@@ -87,15 +93,36 @@ module Fontcustom
       end
     end
 
-    def create_stylesheet
-      files = Dir[File.join(input, '*.{svg,eps}')]
-      @classes = files.map {|file| File.basename(file)[0..-5].gsub(/\W/, '-').downcase }
+    def fontface_sources
       if(!options.font_path.nil?)
         font_path = (options.font_path) ? options.font_path : ''
         @path = File.join(font_path, File.basename(@path))
       else
         @path = File.basename(@path)
       end
+
+      @fontface = {
+        :eot  => "url(\"#{@path}.eot?#iefix\") format(\"embedded-opentype\")",
+        :woff => "url(\"#{@path}.woff\") format(\"woff\")",
+        :ttf  => "url(\"#{@path}.ttf\") format(\"truetype\")",
+        :svg  => "url(\"#{@path}.svg##{@name}\") format(\"svg\")"
+      }
+
+      if(options.order.present?)
+        # reorder the fontface hash
+      end
+
+      # if inline specified, inline the fonts
+
+      # pass the vars along for use in the stylesheet
+      say_status('building fontface')
+    end
+
+    def create_stylesheet
+      say_status('creating stylesheet')
+
+      files = Dir[File.join(input, '*.{svg,eps}')]
+      @classes = files.map {|file| File.basename(file)[0..-5].gsub(/\W/, '-').downcase }
 
       template('templates/fontcustom.css', File.join(@output, 'fontcustom.css'))
       template('templates/fontcustom-ie7.css', File.join(@output, 'fontcustom-ie7.css'))
