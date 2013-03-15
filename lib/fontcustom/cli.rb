@@ -10,7 +10,6 @@ module Fontcustom
 
     class_option :order,      :aliases => '-r', :desc => 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'
     class_option :inline,     :aliases => '-i', :desc => 'Inline font as data-uri in @font-face. Default: none. Format: "eot,ttf,woff,svg"'
-    class_option :extension,  :aliases => '-e', :desc => 'Specify file extension for css output. Default: "css".'
 
     class_option :nohash,     :type => :boolean, :default => false, :desc => 'Disable filename hashes. Default: false'
     class_option :debug,      :type => :boolean, :default => false, :desc => 'Display debug messages. Default: false'

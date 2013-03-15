@@ -15,7 +15,6 @@ module Fontcustom
 
     class_option :order,      :aliases => '-r' # 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'
     class_option :inline,     :aliases => '-i' # 'Inline font as data-uri in @font-face. Default: none. Format: "eot,ttf,woff,svg"'
-    class_option :extension,  :aliases => '-e' # 'Specify file extension for css output. Default: "css".'
 
     class_option :nohash,     :type => :boolean, :default => false
     class_option :debug,      :type => :boolean, :default => false
