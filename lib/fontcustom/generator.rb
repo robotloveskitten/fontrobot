@@ -129,7 +129,7 @@ module Fontcustom
 
     def create_stylesheet
       say_status(:create, 'creating stylesheet')
-      extension = (option.scss) ? '.scss' : '.css'
+      extension = (options.scss) ? '.scss' : '.css'
       files = Dir[File.join(input, '*.{svg,eps}')]
       @classes = files.map {|file| File.basename(file)[0..-5].gsub(/\W/, '-').downcase }
 
