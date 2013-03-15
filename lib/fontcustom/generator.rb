@@ -71,6 +71,7 @@ module Fontcustom
       old_files.each {|file| remove_file file }
     end
 
+
     def generate
       gem_file_path = File.expand_path(File.join(File.dirname(__FILE__)))
       name = options.name ? ' --name ' + @name : ''
@@ -85,6 +86,7 @@ module Fontcustom
       `#{cmd}`
     end
 
+
     def show_paths
       file = Dir[File.join(@output, @name + '*.ttf')].first
       @path = file.chomp('.ttf')
@@ -93,6 +95,7 @@ module Fontcustom
         say_status(:create, @path + '.' + type)
       end
     end
+
 
     def fontface_sources
       if(!options.font_path.nil?)
@@ -114,7 +117,7 @@ module Fontcustom
       inline = (options.inline) ? options.inline.split(",") : []
       reorder = {}
 
-      say_status(:create, 'building fontface: '+ options.order)
+      say_status(:create, 'building fontface: ' + options.inspect)
 
       order.each do |type|
         if(inline.include?(type))
@@ -130,6 +133,7 @@ module Fontcustom
 
       @fonturls = reorder.map{|k,v| v }.join(";\n");
     end
+
 
     def create_stylesheet
       say_status(:create, 'creating stylesheet')
