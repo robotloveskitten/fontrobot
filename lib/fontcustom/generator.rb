@@ -114,6 +114,8 @@ module Fontcustom
       inline = (options.inline) ? options.inline.split(",") : []
       reorder = {}
 
+      say_status(:create, 'building fontface: '+ options.order)
+
       order.each do |type|
         if(inline.include?(type))
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
@@ -127,7 +129,6 @@ module Fontcustom
       end
 
       @fonturls = reorder.map{|k,v| v }.join(";\n");
-      say_status(:create, 'building fontface')
     end
 
     def create_stylesheet
