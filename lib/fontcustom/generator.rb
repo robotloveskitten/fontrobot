@@ -54,20 +54,23 @@ module Fontcustom
     end
 
     def cleanup_output_dir
-      css = File.join(@output, 'fontcustom.css')
-      css_ie7   = File.join(@output, 'fontcustom-ie7.css')
-      test_html = File.join(@output, 'test.html')
-      old_name = if File.exists? css
-                   line = IO.readlines(css)[5]                           # font-family: "Example Font";
-                   line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase  # => 'example-font'
-                 else
-                   'fontcustom'
-                 end
+      # css       = File.join(@output, 'fontcustom.css')
+      # css_ie7   = File.join(@output, 'fontcustom-ie7.css')
+      # test_html = File.join(@output, 'test.html')
+      # old_name  = if File.exists? css
+      #              line = IO.readlines(css)[5]                           # font-family: "Example Font";
+      #              line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase  # => 'example-font'
+      #            else
+      #              'fontcustom'
+      #            end
 
-      old_files = Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')]
-      old_files << css if File.exists?(css)
-      old_files << css_ie7 if File.exists?(css_ie7)
-      old_files << test_html if File.exists?(test_html)
+      # old_files = Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')]
+      # old_files << css if File.exists?(css)
+      # old_files << css_ie7 if File.exists?(css_ie7)
+      # old_files << test_html if File.exists?(test_html)
+
+      # how about we just delete everything in the dir?
+      old_files = Dir[File.join(@output, '*')]
       old_files.each {|file| remove_file file }
     end
 
@@ -98,6 +101,16 @@ module Fontcustom
 
 
     def fontface_sources
+      order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
+      inline = (options.inline) ? options.inline.split(",") : []
+      reorder = {}
+      longtype = {
+        'woff' => 'woff',
+        'ttf'   => 'truetype',
+        'eot' => 'embedded-opentype',
+        'svg' => 'svg'
+      }
+
       if(!options.font_path.nil?)
         font_path = (options.font_path) ? options.font_path : ''
         @path = File.join(font_path, File.basename(@path))
@@ -113,30 +126,17 @@ module Fontcustom
       }
 
       # reorder the fontface hash
-      order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
-      inline = (options.inline) ? options.inline.split(",") : []
-      reorder = {}
-      longtype = {
-        'woff' => 'woff',
-        'ttf'   => 'truetype',
-        'eot' => 'embedded-opentype',
-        'svg' => 'svg'
-      }
-
-      # say_status(:create, 'building fontface: ' + options.inspect)
-
       order.each do |type|
         if(inline.include?(type))
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
           contents = File.read(fontpath)
-          encoded_contents = Base64.encode64(contents).gsub(/\n/, '') # remove newlines
+          encoded_contents = Base64.encode64(contents).gsub(/\n/, '') # encode and remove newlines, 1.8.7 compat
           fontstring = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
         else
           fontstring = @fontface[type.to_sym]
         end
         reorder[type.to_sym] = fontstring
       end
-
       @fonturls = reorder.map{|k,v| v }.join(",\n");
     end
 
