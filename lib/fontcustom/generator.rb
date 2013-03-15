@@ -108,18 +108,29 @@ module Fontcustom
         :svg  => "url(\"#{@path}.svg##{@name}\") format(\"svg\")"
       }
 
-      if(options.order.present?)
-        # reorder the fontface hash
+      # reorder the fontface hash
+      order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
+      inline = (options.inline) ? options.inline.split(",") : []
+
+      reorder = {}
+      order.each do |type|
+        if(type in inline)
+        fontstring = @fontface[type.to_sym]
+        
+        # if inline specified, inline the fonts
+        # data:font/opentype;base64,[base-encoded font here]
+
+        reorder[f.to_sym] = fontstring
       end
 
-      # if inline specified, inline the fonts
 
       # pass the vars along for use in the stylesheet
-      say_status('building fontface')
+
+      say_status(:create, 'building fontface')
     end
 
     def create_stylesheet
-      say_status('creating stylesheet')
+      say_status(:create, 'creating stylesheet')
 
       files = Dir[File.join(input, '*.{svg,eps}')]
       @classes = files.map {|file| File.basename(file)[0..-5].gsub(/\W/, '-').downcase }
