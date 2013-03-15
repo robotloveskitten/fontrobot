@@ -131,7 +131,7 @@ module Fontcustom
         reorder[type.to_sym] = fontstring
       end
 
-      @fonturls = reorder.map{|k,v| v }.join(",\n") + ";";
+      @fonturls = reorder.map{|k,v| v }.join(",\n");
     end
 
 
