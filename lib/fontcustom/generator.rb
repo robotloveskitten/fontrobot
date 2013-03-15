@@ -124,7 +124,7 @@ module Fontcustom
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
           contents = File.read(fontpath)
           encoded_contents = Base64.encode64(contents).gsub(/\n/, '') # remove newlines
-          fontstring = "data:font/opentype;base64," + encoded_contents 
+          fontstring = 'url("data:font/opentype;base64,' + encoded_contents +'\")'
         else
           fontstring = @fontface[type.to_sym]
         end
