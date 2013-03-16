@@ -1,11 +1,11 @@
 require 'thor'
-require 'fontcustom'
+require 'fontrobot'
 
-module Fontcustom
+module Fontrobot
   class CLI < Thor
-    # duplicated from Fontcustom::Generator so as to also appear under `fontcustom help` command
-    class_option :output,     :aliases => '-o', :desc => 'Specify an output directory. Default: $DIR/fontcustom'
-    class_option :name,       :aliases => '-n', :desc => 'Specify a font name. This will be used in the generated fonts and CSS. Default: fontcustom'
+    # duplicated from Fontrobot::Generator so as to also appear under `fontrobot help` command
+    class_option :output,     :aliases => '-o', :desc => 'Specify an output directory. Default: $DIR/fontrobot'
+    class_option :name,       :aliases => '-n', :desc => 'Specify a font name. This will be used in the generated fonts and CSS. Default: fontrobot'
     class_option :font_path,  :aliases => '-f', :desc => 'Specify a path for fonts in css @font-face declaration. Default: none'
 
     class_option :order,      :aliases => '-r', :desc => 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'
@@ -20,13 +20,13 @@ module Fontcustom
     def compile(*args)
       # workaround to pass arguments from one Thor class to another
       ARGV.shift
-      Fontcustom.compile(*ARGV)
+      Fontrobot.compile(*ARGV)
     end
 
     desc 'watch DIR [options]', 'Watches DIR for changes and regenerates webfonts and CSS automatically. Ctrl + C to stop.'
     def watch(*args)
       ARGV.shift
-      Fontcustom.watch(*ARGV)
+      Fontrobot.watch(*ARGV)
     end
   end
 end

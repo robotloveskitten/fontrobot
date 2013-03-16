@@ -25,5 +25,5 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  require File.expand_path('../../lib/fontcustom.rb', __FILE__)
+  require File.expand_path('../../lib/fontrobot.rb', __FILE__)
 end

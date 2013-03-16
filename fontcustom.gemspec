@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fontcustom/version'
+require 'fontrobot/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "fontrobot"
-  gem.version       = Fontcustom::VERSION
+  gem.version       = Fontrobot::VERSION
   gem.authors       = ["Tim Barkow"]
   gem.email         = ["tim@robotloveskitten.com"]
   gem.summary       = %q{Generate custom icon webfonts from the command line.}

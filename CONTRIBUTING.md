@@ -1,6 +1,4 @@
-# FontCustom Contributing Checklist
-
-First, thanks for your interest in making FontCustom better! This project was born out of an over-heard conversation between two devs in a coffee shop — it's come a long ways thanks to the support of kind folks like you.
+# Fontrobot Contributing Checklist
 
 ## A short list to help you get started:
 

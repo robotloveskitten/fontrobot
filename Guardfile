@@ -8,8 +8,8 @@ end
 
 guard 'rspec', :cli => '--color --drb' do
   watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^lib/fontcustom/(.+)\.rb$})    { |m| "spec/fontcustom/#{m[1]}_spec.rb" }
-  watch('lib/fontcustom.rb')              { 'spec/fontcustom/fontcustom_spec.rb' }
-  watch('lib/fontcustom/core.rb')         { 'spec/fontcustom/fontcustom_spec.rb' }
+  watch(%r{^lib/fontrobot/(.+)\.rb$})    { |m| "spec/fontrobot/#{m[1]}_spec.rb" }
+  watch('lib/fontrobot.rb')              { 'spec/fontrobot/fontrobot_spec.rb' }
+  watch('lib/fontrobot/core.rb')         { 'spec/fontrobot/fontrobot_spec.rb' }
   watch('spec/spec_helper.rb')            { 'spec' }
 end

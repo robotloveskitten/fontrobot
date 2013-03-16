@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'fontrobot/cli'
+
+Fontrobot::CLI.start

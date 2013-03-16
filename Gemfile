@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in fontcustom.gemspec
+# Specify your gem's dependencies in fontrobot.gemspec
 gemspec

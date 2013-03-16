@@ -2,7 +2,7 @@ require 'json'
 require 'thor/group'
 require 'base64'
 
-module Fontcustom
+module Fontrobot
   class Generator < Thor::Group
     include Thor::Actions
 
@@ -41,7 +41,7 @@ module Fontcustom
     end
 
     def verify_or_create_output_dir
-      @output = options.output.nil? ? File.join(File.dirname(input), 'fontcustom') : options.output
+      @output = options.output.nil? ? File.join(File.dirname(input), 'fontrobot') : options.output
       empty_directory(@output) unless File.directory?(@output)
     end
 
@@ -49,7 +49,7 @@ module Fontcustom
       @name = if options.name
         options.name.gsub(/\W/, '-').downcase
       else
-        'fontcustom'
+        'fontrobot'
       end
     end
 
@@ -132,8 +132,8 @@ module Fontcustom
       files = Dir[File.join(input, '*.{svg,eps}')]
       @classes = files.map {|file| File.basename(file)[0..-5].gsub(/\W/, '-').downcase }
 
-      template('templates/fontcustom.css', File.join(@output, "fontcustom#{extension}"))
-      template('templates/fontcustom-ie7.css', File.join(@output, "fontcustom-ie7#{extension}"))
+      template('templates/fontrobot.css', File.join(@output, "fontrobot#{extension}"))
+      template('templates/fontrobot-ie7.css', File.join(@output, "fontrobot-ie7#{extension}"))
       template('templates/test.html', File.join(@output, 'test.html')) if options.html
     end
   end

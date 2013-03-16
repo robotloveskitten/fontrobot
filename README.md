@@ -5,8 +5,6 @@ FontRobot v0.1
 
 This is a fork of Fontcustom, required so I could make changes and update the gem in a timely fashion. FontRobot extends Fontcustom, adding more control over how the @fontface declaration is created. See command-line options below for more details.
 
-Fontcustom is probably what you want.
-
 [Fontcustom documentation](http://fontcustom.github.com/fontcustom/)
 
 
@@ -16,7 +14,7 @@ Installation
 ```sh
 # Requires FontForge
 brew install fontforge ttfautohint
-gem install fontcustom
+gem install fontrobot
 ```
 
 
@@ -24,19 +22,19 @@ Usage
 -----
 
 ```sh
-fontcustom compile path/to/vectors  # Compile icons and css to path/to/fontcustom/*
-fontcustom watch path/to/vectors    # Watch for changes
+fontrobot compile path/to/vectors  # Compile icons and css to path/to/fontrobot/*
+fontrobot watch path/to/vectors    # Watch for changes
 ```
 
-**Note:** the **ENTIRE** contents of the output directory (default '/fontcustom') are **DELETED** when regenerating the font. So, don't put anything else in there.
+**Note:** the **ENTIRE** contents of the output directory (default '/fontrobot') are **DELETED** when regenerating the font. So, don't put anything else in there.
 
 
 Command-line options
 -----
 
 ```sh
---output, -o      => Specify an output directory. Default: $DIR/fontcustom
---name, -n        => Specify a font name. This will be used in the generated fonts and CSS. Default: fontcustom
+--output, -o      => Specify an output directory. Default: $DIR/fontrobot
+--name, -n        => Specify a font name. This will be used in the generated fonts and CSS. Default: fontrobot
 --font_path, -f   => Specify a path for fonts in css @font-face declaration. Default: none
 
 --order, -r       => Specify font order in css @font-face. Default: "eot,ttf,woff,svg"
@@ -51,5 +49,5 @@ Command-line options
 Need help?
 
 ```sh
-fontcustom --help
+fontrobot --help
 ```
