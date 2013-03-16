@@ -30,10 +30,6 @@ describe Fontcustom do
       end
     end
 
-    it 'should not delete non-fontcustom generated files' do
-      File.exists?(fake_file).should be_true
-    end
-
     it 'should generate different css' do
       new_css = File.read(output_dir + '/fontcustom.css')
       new_css.should_not equal(@original_css)

@@ -1,10 +1,13 @@
-FontCustom v0.1.4
+FontRobot v0.1
 ==========
 
 **Generate custom icon webfonts from the comfort of the command line.**
 
-[Full documentation](http://fontcustom.github.com/fontcustom/)<br/>
-[Feedback and issues](https://github.com/FontCustom/fontcustom/issues)
+This is a fork of Fontcustom, required so I could make changes and update the gem in a timely fashion. FontRobot extends Fontcustom, adding more control over how the @fontface declaration is created. See command-line options below for more details.
+
+Fontcustom is probably what you want.
+
+[Fontcustom documentation](http://fontcustom.github.com/fontcustom/)
 
 
 Installation
@@ -25,7 +28,7 @@ fontcustom compile path/to/vectors  # Compile icons and css to path/to/fontcusto
 fontcustom watch path/to/vectors    # Watch for changes
 ```
 
-Note: the contents of the output directory (default '/fontcustom') are deleted when regenerating the font. 
+**Note:** the **ENTIRE** contents of the output directory (default '/fontcustom') are **DELETED** when regenerating the font. So, don't put anything else in there.
 
 
 Command-line options
