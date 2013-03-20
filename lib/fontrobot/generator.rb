@@ -89,7 +89,7 @@ module Fontrobot
     def fontface_sources
       order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
       inline = (options.inline) ? options.inline.split(",") : []
-      zip = (options.zip) ? options.zip.split(",") : []
+      zip = (options.zip.empty?) ? options.zip.split(",") : []
       
       reorder = {}
       longtype = {
