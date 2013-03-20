@@ -1,6 +1,7 @@
 require 'json'
 require 'thor/group'
 require 'base64'
+require 'zlib'
 
 module Fontrobot
   class Generator < Thor::Group
@@ -88,6 +89,8 @@ module Fontrobot
     def fontface_sources
       order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
       inline = (options.inline) ? options.inline.split(",") : []
+      zip = (options.zip) ? options.zip.split(",") : []
+      
       reorder = {}
       longtype = {
         'woff' => 'woff',
@@ -109,6 +112,21 @@ module Fontrobot
         :ttf  => "url(\"#{@path}.ttf\") format(\"truetype\")",
         :svg  => "url(\"#{@path}.svg##{@name}\") format(\"svg\")"
       }
+
+      # create zipped fontfiles 
+      order.each do |type|
+        if(zipped.include?(type) && type != 'woff')
+          fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
+          zfile = fontpath + 'z'
+          Zlib::GzipWriter.open(zfile) do |gz|
+            begin
+              gz.write(File.read(fontpath))
+            ensure
+              gz.close
+            end
+          end
+        else
+      end
 
       # reorder the fontface hash
       order.each do |type|
