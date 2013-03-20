@@ -115,7 +115,8 @@ module Fontrobot
 
       # create zipped fontfiles 
       order.each do |type|
-        if(zipped.include?(type) && type != 'woff')
+        # if(zip.include?(type) && type != 'woff')
+        if(type != 'woff')
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
           zfile = fontpath + 'z'
           Zlib::GzipWriter.open(zfile) do |gz|
