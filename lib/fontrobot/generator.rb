@@ -113,16 +113,14 @@ module Fontrobot
         :svg  => "url(\"#{@path}.svg##{@name}\") format(\"svg\")"
       }
 
-      # create zipped fontfiles 
-      order.each do |type|
-        # if(zip.include?(type) && type != 'woff')
-        if(type != 'woff')
-          fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
-          zfile = fontpath + 'z'
-          Zlib::GzipWriter.open(zfile) do |gz|
-            gz.write(File.read(fontpath))
-            gz.close
-          end
+      # create zipped fontfiles
+      zip = ['ttf','svg']
+      zip.each do |type|
+        fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
+        zfile = fontpath + 'z'
+        Zlib::GzipWriter.open(zfile) do |gz|
+          gz.write(File.read(fontpath))
+          gz.close
         end
       end
 
@@ -135,6 +133,9 @@ module Fontrobot
           fontstring = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
         else
           fontstring = @fontface[type.to_sym]
+          if(zip.include?(type)) {
+            fontstring.gsub(type,type+'z')
+          }
         end
         reorder[type.to_sym] = fontstring
       end
