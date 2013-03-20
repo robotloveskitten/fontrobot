@@ -133,9 +133,9 @@ module Fontrobot
           fontstring = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
         else
           fontstring = @fontface[type.to_sym]
-          if(zip.include?(type)) {
+          if(zip.include?(type))
             fontstring.gsub(type,type+'z')
-          }
+          end
         end
         reorder[type.to_sym] = fontstring
       end
