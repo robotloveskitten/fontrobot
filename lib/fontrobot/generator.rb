@@ -119,13 +119,10 @@ module Fontrobot
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
           zfile = fontpath + 'z'
           Zlib::GzipWriter.open(zfile) do |gz|
-            begin
-              gz.write(File.read(fontpath))
-            ensure
-              gz.close
-            end
+            gz.write(File.read(fontpath))
+            gz.close
           end
-        else
+        end
       end
 
       # reorder the fontface hash
