@@ -4,7 +4,7 @@ DO NOT EDIT THIS COMMENT BLOCK. IT'S REQUIRED BY THE GENERATOR. THX, FONTROBOT
 Path:<%= @path %>
 */
  
-<% if @have_inline_fonts %>
+<% if @inline_sources %>
 @font-face {
   font-family: "<%= @name %>";
   src: url("<%= @path %>.eot?#iefix") format("embedded-opentype");

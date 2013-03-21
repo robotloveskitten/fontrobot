@@ -86,7 +86,7 @@ module Fontrobot
 
 
     def fontface_sources
-      @have_inline_sources = false
+      @inline_sources = false
       fonts = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
       inline = (options.inline) ? options.inline.split(",") : []
       zip = (options.zip.empty?) ? options.zip.split(",") : []
@@ -117,11 +117,8 @@ module Fontrobot
       # if we're inlining we need to make 2 font-face declarations
       # http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax
       if(inline.any?)
-        say_status(:create, inline.any?.to_s)
-        @have_inline_sources = true
-        say_status(:create, @have_inline_sources)
+        @inline_sources = true
         fonts.delete('eot') # can't ever inline an eot
-        say_status(:create, fonts)
       end
 
       # order the fontface hash
