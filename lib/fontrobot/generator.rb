@@ -47,11 +47,7 @@ module Fontrobot
     end
 
     def normalize_name
-      @name = if options.name
-        options.name.gsub(/\W/, '-').downcase
-      else
-        'fontrobot'
-      end
+      @name = (options.name) ? options.name.gsub(/\W/, '-').downcase : 'fontrobot'
     end
 
     def cleanup_output_dir
