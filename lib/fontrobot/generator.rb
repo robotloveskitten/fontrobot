@@ -49,24 +49,14 @@ module Fontrobot
     end
 
     def cleanup_output_dir
-      # simpler: how about we just delete everything in the dir?
-      old_files = Dir[File.join(@output, '*')]
-      old_files.each {|file| remove_file file }
-      # css = File.join(@output, 'fontcustom.css')
-      # css_ie7   = File.join(@output, 'fontcustom-ie7.css')
-      # test_html = File.join(@output, 'test.html')
-      # old_name = if File.exists? css
-      #              line = IO.readlines(css)[5]                           # font-family: "Example Font";
-      #              line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase  # => 'example-font'
-      #            else
-      #              'fontcustom'
-      #            end
- 
-      # old_files = Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')]
-      # old_files << css if File.exists?(css)
-      # old_files << css_ie7 if File.exists?(css_ie7)
-      # old_files << test_html if File.exists?(test_html)
-      # old_files.each {|file| remove_file file }
+      old_files = ['fontrobot.css','fontrobot-ie7.css','test.html']
+      old_name = 'fontrobot'
+      if File.exists? File.join(@output, old_files[0])
+         line = IO.readlines(css)[3]
+         old_name = line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase
+       end
+      old_files.concat(Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')])
+      old_files.each { |file| remove_file File.join(@output, file) }
     end
 
 
