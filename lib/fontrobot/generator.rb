@@ -117,9 +117,11 @@ module Fontrobot
       # if we're inlining we need to make 2 font-face declarations
       # http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax
       if(inline.any?)
-        say_status(:create, inline)
+        say_status(:create, inline.any?.to_s)
         @have_inline_sources = true
+        say_status(:create, @have_inline_sources)
         fonts.delete(:eot) # can't ever inline an eot
+        say_status(:create, fonts)
       end
 
       # order the fontface hash
