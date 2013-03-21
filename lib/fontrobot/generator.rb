@@ -52,7 +52,7 @@ module Fontrobot
       old_files = ['fontrobot.css','fontrobot-ie7.css','test.html']
       old_name = 'fontrobot'
       css = File.join(@output, old_files[0])
-      if File.exists? css)
+      if File.exists?(css)
          line = IO.readlines(css)[3]
          old_name = line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase
        end
