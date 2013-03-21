@@ -131,7 +131,7 @@ module Fontrobot
       end
 
       # order the fontface hash
-      @font_sources
+      @font_sources = ''
       fonts.each do |type|
         if(inline.include?(type))
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
@@ -141,7 +141,7 @@ module Fontrobot
         else
           src = fontface_strings[type.to_sym]
         end
-        @font_sources += src + " ";
+        @font_sources << src + " ";
       end
     end
 
