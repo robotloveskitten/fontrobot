@@ -117,6 +117,7 @@ module Fontrobot
       # if we're inlining we need to make 2 font-face declarations
       # http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax
       if(inline.any?)
+        say_status(:create, inline)
         @have_inline_sources = true
         fonts.delete(:eot) # can't ever inline an eot
       end
@@ -126,8 +127,7 @@ module Fontrobot
       fonts.each do |type|
         if(inline.include?(type))
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
-          contents = File.read(fontpath)
-          encoded_contents = Base64.encode64(contents).gsub(/\n/, '') # encode and remove newlines, 1.8.7 compat
+          encoded_contents = Base64.encode64(File.read(fontpath)).gsub(/\n/, '') # encode and remove newlines, 1.8.7 compat
           src = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
         else
           src = fontface_strings[type.to_sym]
