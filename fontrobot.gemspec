@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["tim@robotloveskitten.com"]
   gem.summary       = %q{Generate custom icon webfonts from the command line.}
   gem.description   = %q{Transforms EPS and SVG vectors into icon webfonts. Generates Bootstrap compatible CSS for easy inclusion in your projects.}
-  gem.homepage      = "http://robotloveskitten.github.com/fontrobot/"
+  gem.homepage      = "http://github.com/robotloveskitten/fontrobot/"
   gem.licenses      = ["MIT", "MPL 1.1/GPL 2.0/LGPL 2.1"]
 
   gem.files         = `git ls-files`.split($/)
