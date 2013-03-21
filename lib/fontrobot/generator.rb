@@ -120,7 +120,7 @@ module Fontrobot
         say_status(:create, inline.any?.to_s)
         @have_inline_sources = true
         say_status(:create, @have_inline_sources)
-        fonts.delete(:eot) # can't ever inline an eot
+        fonts.delete('eot') # can't ever inline an eot
         say_status(:create, fonts)
       end
 
