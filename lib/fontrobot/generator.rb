@@ -125,7 +125,7 @@ module Fontrobot
 
       # if we're inlining we need to make 2 font-face declarations
       # http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax
-      if(inline.present?)
+      if(inline.any?)
         @have_inline_sources = true
         fonts.delete(:eot) # can't ever inline an eot
       end
