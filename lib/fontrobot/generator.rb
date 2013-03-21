@@ -117,10 +117,10 @@ module Fontrobot
       end
 
       fontface_strings = {
-        :eot  => "url(\"#{@path}.eot?#iefix\") format(\"embedded-opentype\")",
-        :woff => "url(\"#{@path}.woff\") format(\"woff\")",
-        :ttf  => "url(\"#{@path}.ttf\") format(\"truetype\")",
-        :svg  => "url(\"#{@path}.svg##{@name}\") format(\"svg\")"
+        :eot  => "url('#{@path}.eot?#iefix') format('embedded-opentype')",
+        :woff => "url('#{@path}.woff') format('woff')",
+        :ttf  => "url('#{@path}.ttf') format('truetype')",
+        :svg  => "url('#{@path}.svg##{@name}') format('svg')"
       }
 
       # if we're inlining we need to make 2 font-face declarations
