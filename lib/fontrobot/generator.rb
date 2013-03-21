@@ -143,7 +143,7 @@ module Fontrobot
         end
         @font_sources << src;
       end
-      @font_sources.join(', ');
+      @font_sources = @font_sources.join(', ');
     end
 
 
