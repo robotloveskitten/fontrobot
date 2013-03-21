@@ -1,5 +1,6 @@
 fontcustom
 
+    Copyright (c) 2013 Tim Barkow
     Copyright (c) 2012 Yifei Zhang, Joshua Gross
 
     MIT License
