@@ -54,7 +54,7 @@ module Fontrobot
       css = File.join(@output, old_files[0])
       if File.exists?(css)
          line = IO.readlines(css)[3]
-         old_name = line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase
+         old_name = line.scan(/Path:(.+)/)[0][1..-2].gsub(/\W/, '-').downcase
        end
       old_files.concat(Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')])
       old_files.each { |file| remove_file File.join(@output, file) }
