@@ -141,9 +141,8 @@ module Fontrobot
         else
           src = fontface_strings[type.to_sym]
         end
-        reorder[type.to_sym] = fontstring
+        @font_sources << src + " ";
       end
-      @font_sources << src + " ";
     end
 
 
