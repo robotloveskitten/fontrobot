@@ -10,13 +10,11 @@ module Fontrobot
     desc 'Generates webfonts from given directory of vectors.'
 
     argument :input, :type => :string
-    class_option :output, :aliases => '-o'
-    class_option :name, :aliases => '-n'
-    class_option :font_path, :aliases => '-f'
-
+    class_option :output,     :aliases => '-o'
+    class_option :name,       :aliases => '-n'
+    class_option :font_path,  :aliases => '-f'
     class_option :order,      :aliases => '-r' # 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'
     class_option :inline,     :aliases => '-i' # 'Inline font as data-uri in @font-face. Default: none. Format: "eot,ttf,woff,svg"'
-
     class_option :nohash,     :type => :boolean, :default => false
     class_option :debug,      :type => :boolean, :default => false
     class_option :html,       :type => :boolean, :default => false
@@ -54,6 +52,21 @@ module Fontrobot
       # simpler: how about we just delete everything in the dir?
       old_files = Dir[File.join(@output, '*')]
       old_files.each {|file| remove_file file }
+      # css = File.join(@output, 'fontcustom.css')
+      # css_ie7   = File.join(@output, 'fontcustom-ie7.css')
+      # test_html = File.join(@output, 'test.html')
+      # old_name = if File.exists? css
+      #              line = IO.readlines(css)[5]                           # font-family: "Example Font";
+      #              line.scan(/".+"/)[0][1..-2].gsub(/\W/, '-').downcase  # => 'example-font'
+      #            else
+      #              'fontcustom'
+      #            end
+ 
+      # old_files = Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')]
+      # old_files << css if File.exists?(css)
+      # old_files << css_ie7 if File.exists?(css_ie7)
+      # old_files << test_html if File.exists?(test_html)
+      # old_files.each {|file| remove_file file }
     end
 
 
@@ -75,7 +88,6 @@ module Fontrobot
     def show_paths
       file = Dir[File.join(@output, @name + '*.ttf')].first
       @path = file.chomp('.ttf')
-
       ['woff','ttf','eot','svg'].each do |type|
         say_status(:create, @path + '.' + type)
       end
@@ -83,7 +95,8 @@ module Fontrobot
 
 
     def fontface_sources
-      order = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
+      @have_inline_sources = false
+      fonts = (options.order) ? options.order.split(",") : ['eot','ttf','woff','svg']
       inline = (options.inline) ? options.inline.split(",") : []
       zip = (options.zip.empty?) ? options.zip.split(",") : []
       
@@ -95,6 +108,7 @@ module Fontrobot
         'svg' => 'svg'
       }
 
+      # set url path for font files
       if(!options.font_path.nil?)
         font_path = (options.font_path) ? options.font_path : ''
         @path = File.join(font_path, File.basename(@path))
@@ -102,40 +116,34 @@ module Fontrobot
         @path = File.basename(@path)
       end
 
-      @fontface = {
+      fontface_strings = {
         :eot  => "url(\"#{@path}.eot?#iefix\") format(\"embedded-opentype\")",
         :woff => "url(\"#{@path}.woff\") format(\"woff\")",
         :ttf  => "url(\"#{@path}.ttf\") format(\"truetype\")",
         :svg  => "url(\"#{@path}.svg##{@name}\") format(\"svg\")"
       }
 
-      # create zipped fontfiles
-      zip = ['ttf','svg']
-      zip.each do |type|
-        fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
-        zfile = fontpath + 'z'
-        Zlib::GzipWriter.open(zfile) do |gz|
-          gz.write(File.read(fontpath))
-          gz.close
-        end
+      # if we're inlining we need to make 2 font-face declarations
+      # http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax
+      if(inline.present?)
+        @have_inline_sources = true
+        fonts.delete(:eot) # can't ever inline an eot
       end
 
-      # reorder the fontface hash
-      order.each do |type|
+      # order the fontface hash
+      @font_sources
+      fonts.each do |type|
         if(inline.include?(type))
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
           contents = File.read(fontpath)
           encoded_contents = Base64.encode64(contents).gsub(/\n/, '') # encode and remove newlines, 1.8.7 compat
-          fontstring = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
+          src = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
         else
-          fontstring = @fontface[type.to_sym]
-          if(zip.include?(type))
-            fontstring.gsub(type,type+'z')
-          end
+          src = fontface_strings[type.to_sym]
         end
         reorder[type.to_sym] = fontstring
       end
-      @fonturls = reorder.map{|k,v| v }.join(",\n");
+      @font_sources << src + " ";
     end
 
 

@@ -1,10 +1,19 @@
 /*
-  Font Custom - icon webfonts made simple
+Font Robot CSS
+-- DO NOT REMOVE FOLLOWING LINE, REQUIRED BY THE GENERATOR. - THX, FONTROBOT --
+Path:<%= @path %>
 */
-
+ 
+<% if @have_inline_fonts %>
 @font-face {
   font-family: "<%= @name %>";
-  src: <%= @fonturls %>;
+  src: url("<%= @path %>.eot?#iefix") format("embedded-opentype");
+}
+ 
+<% end %>
+@font-face {
+  font-family: "<%= @name %>";
+  src: <%= @font_sources %>;
   font-weight: normal;
   font-style: normal;
 }
