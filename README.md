@@ -1,18 +1,24 @@
-FontRobot v0.1.1
+FontRobot v0.1.4
 ==========
 
 **Generate custom icon webfonts from the comfort of the command line.**
 
-This is a fork of Fontcustom. I needed a quick fork to work out the kinks using this gem in a large-scale production Rails environment. I'm testing it live every day. :) I hope to merge my changes upstream to Fontcustom soon (Just FYI).
+This is a fork of Fontcustom. I needed a quick fork to work out the kinks using this gem in a large-scale production Rails environment. I hope to merge my changes upstream to Fontcustom soon (Just FYI).
 
 FontRobot is primarily designed to add more control over how the @fontface declaration is created. See command-line options below for more details.
 
-Fontrobot allows you specify the font order in @font-face, to inline font(s) as a data-uri, and creates an IE-compatible @font-face declaration. 
+Fontrobot allows you to:
 
-Data-uri fonts are nice because they circumvent some browser's origin policies and they load fast. For best performance, make sure your server gzips all served assets.
+* Specify the font order in @font-face
+* Inline font(s) as a data-uri
+* Create an IE-compatible @font-face declaration
+* output css files with .scss extension for importing to Sass projects
+
+Including fonts as data-uris is nice because it avoids Firefox's same-origin policy and they load fast. For best performance, make sure your server gzips all served assets.
 
 [Original Fontcustom documentation](http://fontcustom.github.com/fontcustom/)
 
+**NOTE:** After upgrading, rename or delete your current output directory (or all generated font/css files), as Fontrobot won't be able to clean the directory using the old css template.
 
 Installation
 ------------
@@ -31,9 +37,6 @@ Usage
 fontrobot compile path/to/vectors  # Compile icons and css to path/to/fontrobot/*
 fontrobot watch path/to/vectors    # Watch for changes
 ```
-
-**Note:** the **ENTIRE** contents of the output directory (default '/fontrobot') are **DELETED** when regenerating the font. So, don't put anything else in there.
-
 
 Command-line options
 -----
