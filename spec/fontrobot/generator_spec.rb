@@ -56,20 +56,52 @@ describe Fontrobot::Generator do
   context 'when flags are passed' do
     it 'should save output files with a custom name' do
       Fontrobot::Generator.start([input_dir, '-o', output_dir, '-n', 'customname'])
-
       file = Dir[File.join(output_dir, 'customname-*.ttf')].first
       File.exists?(file).should be_true
-
       cleanup(output_dir)
     end
 
     it 'should exclude the filename hash' do
       Fontrobot::Generator.start([input_dir, '-o', output_dir, '--nohash'])
-
       file = File.join(output_dir, 'fontrobot.ttf')
       File.exists?(file).should be_true
-
       cleanup(output_dir)
     end
+
+    it 'should output an html test file' do
+      Fontrobot::Generator.start([input_dir, '-o', output_dir, '--html'])
+      file = File.join(output_dir, 'test.html')
+      File.exists?(file).should be_true
+      cleanup(output_dir)
+    end
+
+    it 'should output .scss files' do
+      Fontrobot::Generator.start([input_dir, '-o', output_dir, '--scss'])
+      file = File.join(output_dir, 'fontrobot.scss')
+      File.exists?(file).should be_true
+      cleanup(output_dir)
+    end
+
+    it 'should reorder the font sources in fontrobot.css' do
+      font_order = 'eot,woff,ttf,svg'
+      Fontrobot::Generator.start([input_dir, '-o', output_dir, '-r', font_order])
+      stylesheet = File.read(output_dir + '/fontrobot.css')
+      fontface = stylesheet.match(/@font-face[^}]+/)
+      fonts = fontface[0].scan(/fontrobot-[a-z0-9]+.([a-z]+)/).flatten.join(',')
+      fonts.should == font_order
+    end
+
+    it 'should set a font path in fontrobot.css' do
+      Fontrobot::Generator.start([input_dir, '-o', output_dir, '-f', 'wiggly'])
+      stylesheet = File.read(output_dir + '/fontrobot.css')
+      stylesheet.should include('wiggly')
+    end
+
+    it 'should include a data uri in fontrobot.css' do
+      Fontrobot::Generator.start([input_dir, '-o', output_dir, '-i', 'woff'])
+      stylesheet = File.read(output_dir + '/fontrobot.css')
+      stylesheet.should include('url(data:')
+    end
+
   end
 end
