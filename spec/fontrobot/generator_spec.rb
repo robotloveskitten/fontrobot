@@ -82,7 +82,7 @@ describe Fontrobot::Generator do
       cleanup(output_dir)
     end
 
-    it 'should reorder the font sources in fontrobot.css' do
+    it 'should reorder the font sources' do
       font_order = 'eot,woff,ttf,svg'
       Fontrobot::Generator.start([input_dir, '-o', output_dir, '-r', font_order])
       stylesheet = File.read(output_dir + '/fontrobot.css')
@@ -91,16 +91,23 @@ describe Fontrobot::Generator do
       fonts.should == font_order
     end
 
-    it 'should set a font path in fontrobot.css' do
+    it 'should set a custom font path' do
       Fontrobot::Generator.start([input_dir, '-o', output_dir, '-f', 'wiggly'])
       stylesheet = File.read(output_dir + '/fontrobot.css')
       stylesheet.should include('wiggly')
     end
 
-    it 'should include a data uri in fontrobot.css' do
+    it 'should include a data uri' do
       Fontrobot::Generator.start([input_dir, '-o', output_dir, '-i', 'woff'])
       stylesheet = File.read(output_dir + '/fontrobot.css')
       stylesheet.should include('url(data:')
+    end
+
+    it 'should include two @font-face declarations if it includes a data-uri' do
+      Fontrobot::Generator.start([input_dir, '-o', output_dir, '-i', 'woff'])
+      stylesheet = File.read(output_dir + '/fontrobot.css')
+      fontfaces = stylesheet.scan(/@font-face/)
+      fontfaces.length.should == 2
     end
 
   end
