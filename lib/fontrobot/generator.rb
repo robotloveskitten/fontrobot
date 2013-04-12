@@ -49,14 +49,17 @@ module Fontrobot
     end
 
     def cleanup_output_dir
+      # simpler: how about we just delete everything in the dir?
+      # old_files = Dir[File.join(@output, '*')]
+      # old_files.each {|file| remove_file file }
       old_files = ['fontrobot.css','fontrobot-ie7.css','test.html']
       old_name = 'fontrobot'
       css = File.join(@output, old_files[0])
-      if File.exists?(css)
+      if File.file?(css)
          line = IO.readlines(css)[3]
          old_name = line.match(/Path:([^-]+)/)[1].downcase
        end
-      old_files.concat(Dir[File.join(@output, old_name + '-*.{woff,ttf,eot,svg}')])
+      old_files << old_name + '-*.{woff,ttf,eot,svg}'
       old_files.each { |file| remove_file File.join(@output, file) }
     end
 
