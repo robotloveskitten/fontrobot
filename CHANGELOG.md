@@ -1,3 +1,7 @@
+## 0.1.5 (2/19/2013)
+
+* Fixed file cleanup method. Fixed specs
+
 ## 0.1.4 (2/19/2013)
 
 * Instructions for stopping watcher ([#46](https://github.com/FontCustom/fontcustom/issues/46))
