@@ -1,4 +1,4 @@
-FontRobot v0.1.4
+FontRobot v0.1.6
 ==========
 
 **Generate custom icon webfonts from the comfort of the command line.**
