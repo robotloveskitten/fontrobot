@@ -61,7 +61,6 @@ module Fontrobot
        end
       old_files.concat([File.join(old_name + '-*.{woff,ttf,eot,svg}')])
       old_files.each do |file| 
-        say_status(:create, 'Removing ' + File.join(@output, file))
         remove_file File.join(@output, file) 
       end
     end
