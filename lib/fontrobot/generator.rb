@@ -57,11 +57,11 @@ module Fontrobot
       css = File.join(@output, old_files[0])
       if File.file?(css)
          line = IO.readlines(css)[3]
-         old_name = File.basename(line.match(/Name:([^-]+)/)[1]).downcase
+         old_name = File.basename(line.match(/Name:([^-]+)/)[1]).tr("\n","").downcase
        end
-      old_files.concat(Dir[File.join(old_name + '-*.{woff,ttf,eot,svg}')])
+      old_files.concat([File.join(old_name + '-*.{woff,ttf,eot,svg}')])
       old_files.each do |file| 
-        say_status(:create, 'Removing' + File.join(@output, file))
+        say_status(:create, 'Removing ' + File.join(@output, file))
         remove_file File.join(@output, file) 
       end
     end
