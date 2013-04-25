@@ -1,7 +1,7 @@
 /*
 Font Robot CSS
 DO NOT EDIT THIS COMMENT BLOCK. IT'S REQUIRED BY THE GENERATOR. THX, FONTROBOT
-Path:<%= @path %>
+Name:<%= @name %>
 */
  
 <% if @inline_sources %>
