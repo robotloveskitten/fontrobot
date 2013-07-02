@@ -7,7 +7,7 @@ Name:<%= @name %>
 <% if @inline_sources %>
 @font-face {
   font-family: "<%= @name %>";
-  src: url("<%= @path %>.eot");
+  src: url("<%= @path %>.eot?") format('embedded-opentype');
 }
  
 <% end %>

@@ -120,7 +120,7 @@ module Fontrobot
         if(inline.include?(type))
           fontpath = File.expand_path(File.join(@output, File.basename(@path)+"."+type))
           encoded_contents = Base64.encode64(File.read(fontpath)).gsub(/\n/, '') # encode and remove newlines, 1.8.7 compat
-          src = "url(data:application/x-font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
+          src = "url(data:application/font-#{type};charset=utf-8;base64," + encoded_contents +") format('#{longtype[type]}')"
         else
           src = fontface_strings[type.to_sym]
         end
