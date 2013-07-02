@@ -1,11 +1,9 @@
-FontRobot v0.1.6
+FontRobot v0.1.7
 ==========
 
 **Generate custom icon webfonts from the comfort of the command line.**
 
-This is a fork of Fontcustom. I needed a quick fork to work out the kinks using this gem in a large-scale production Rails environment. I hope to merge my changes upstream to Fontcustom soon (Just FYI).
-
-FontRobot is primarily designed to add more control over how the @fontface declaration is created. See command-line options below for more details.
+This is a fork of Fontcustom. I needed a quick fork to work out the kinks using this gem in a large-scale production Rails environment. FontRobot is primarily designed to add more control over how the @fontface declaration is created. See command-line options below for more details.
 
 Fontrobot allows you to:
 
@@ -14,11 +12,11 @@ Fontrobot allows you to:
 * Create an IE-compatible @font-face declaration
 * output css files with .scss extension for importing to Sass projects
 
-Including fonts as data-uris is nice because it avoids Firefox's same-origin policy and they load fast. For best performance, make sure your server gzips all served assets.
-
-[Original Fontcustom documentation](http://fontcustom.github.com/fontcustom/)
+Including fonts as data-uris is nice because it avoids Firefox's same-origin policy (CORS) and they load fast. For best performance, make sure your server gzips all served assets.
 
 **NOTE:** After upgrading, rename or delete your current output directory (or all generated font/css files), as Fontrobot won't be able to clean the directory using the old css template.
+
+[Original Fontcustom documentation](http://fontcustom.github.com/fontcustom/)
 
 Installation
 ------------
