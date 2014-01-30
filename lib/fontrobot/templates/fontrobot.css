@@ -22,7 +22,7 @@ Name:<%= @name %>
   Bootstrap Overrides
 */
 
-[class^="icon-"]:before, [class*=" icon-"]:before {
+[class^="<%= @prefix %>-"]:before, [class*=" <%= @prefix %>-"]:before {
   font-family: "<%= @name %>";
   font-weight: normal;
   font-style: normal;
@@ -30,44 +30,44 @@ Name:<%= @name %>
   text-decoration: inherit;
 }
 
-a [class^="icon-"], a [class*=" icon-"] {
+a [class^="<%= @prefix %>-"], a [class*=" <%= @prefix %>-"] {
   display: inline-block;
   text-decoration: inherit;
 }
 
 /* makes the font 33% larger relative to the icon container */
-.icon-large:before {
+.<%= @prefix %>-large:before {
   vertical-align: top;
   font-size: 1.333em;
 }
 
 /* keeps button heights with and without icons the same */
-.btn [class^="icon-"], .btn [class*=" icon-"] {
+.btn [class^="<%= @prefix %>-"], .btn [class*=" <%= @prefix %>-"] {
   line-height: 0.9em;
 }
 
-li [class^="icon-"], li [class*=" icon-"] {
+li [class^="<%= @prefix %>-"], li [class*=" <%= @prefix %>-"] {
   display: inline-block;
   width: 1.25em;
   text-align: center;
 }
 
 /* 1.5 increased font size for icon-large * 1.25 width */
-li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
+li .<%= @prefix %>-large[class^="<%= @prefix %>-"], li .<%= @prefix %>-large[class*=" <%= @prefix %>-"] {
   width: 1.875em;
 }
 
-li[class^="icon-"], li[class*=" icon-"] {
+li[class^="<%= @prefix %>-"], li[class*=" <%= @prefix %>-"] {
   margin-left: 0;
   list-style-type: none;
 }
 
-li[class^="icon-"]:before, li[class*=" icon-"]:before {
+li[class^="<%= @prefix %>-"]:before, li[class*=" <%= @prefix %>-"]:before {
   text-indent: -2em;
   text-align: center;
 }
 
-li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
+li[class^="<%= @prefix %>-"].<%= @prefix %>-large:before, li[class*=" <%= @prefix %>-"].<%= @prefix %>-large:before {
   text-indent: -1.333em;
 }
 
@@ -75,4 +75,4 @@ li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
   Icon Classes
 */
 <% @classes.each_with_index do |name, index| %>
-.icon-<%= name %>:before { content: "\<%= (61696+index).to_s(16) %>"; }<% end %>
+.<%= @prefix %>-<%= name %>:before { content: "\<%= (61696+index).to_s(16) %>"; }<% end %>

@@ -1,11 +1,11 @@
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="<%= @prefix %>-"],
+[class*=" <%= @prefix %>-"] {
   font-family: "<%= @name %>";
   font-style: normal;
   font-weight: normal;
 }
-.btn.dropdown-toggle [class^="icon-"],
-.btn.dropdown-toggle [class*=" icon-"] {
+.btn.dropdown-toggle [class^="<%= @prefix %>-"],
+.btn.dropdown-toggle [class*=" <%= @prefix %>-"] {
   /* keeps button heights with and without icons the same */
 
   line-height: 1.4em;
@@ -15,4 +15,4 @@
 }
 
 <% @classes.each_with_index do |name, index| %>
-.icon-<%= name %> { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x<%= (61696+index).to_s(16) %>;&nbsp;');} <% end %>
+.<%= @prefix %>-<%= name %> { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x<%= (61696+index).to_s(16) %>;&nbsp;');} <% end %>

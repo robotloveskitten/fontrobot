@@ -6,6 +6,7 @@ module Fontrobot
     # duplicated from Fontrobot::Generator so as to also appear under `fontrobot help` command
     class_option :output,     :aliases => '-o', :desc => 'Specify an output directory. Default: $DIR/fontrobot'
     class_option :name,       :aliases => '-n', :desc => 'Specify a font name. This will be used in the generated fonts and CSS. Default: fontrobot'
+    class_option :prefix,     :aliases => '-p', :desc => 'Specify a css prefix. This will be used in the generated CSS. Default: icon'
     class_option :font_path,  :aliases => '-f', :desc => 'Specify a path for fonts in css @font-face declaration. Default: none'
 
     class_option :order,      :aliases => '-r', :desc => 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'

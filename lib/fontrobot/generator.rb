@@ -12,6 +12,7 @@ module Fontrobot
     argument :input, :type => :string
     class_option :output,     :aliases => '-o'
     class_option :name,       :aliases => '-n'
+    class_option :prefix,     :aliases => '-p' # css prefix, default icon
     class_option :font_path,  :aliases => '-f'
     class_option :order,      :aliases => '-r' # 'Specify font order in css @font-face. Default: "eot,ttf,woff,svg"'
     class_option :inline,     :aliases => '-i' # 'Inline font as data-uri in @font-face. Default: none. Format: "eot,ttf,woff,svg"'
@@ -135,6 +136,7 @@ module Fontrobot
       extension = (options.scss) ? '.scss' : '.css'
       files = Dir[File.join(input, '*.{svg,eps}')]
       @classes = files.map {|file| File.basename(file)[0..-5].gsub(/\W/, '-').downcase }
+      @prefix = (options.prefix) ? options.prefix : 'icon'
 
       template('templates/fontrobot.css', File.join(@output, "fontrobot#{extension}"))
       template('templates/fontrobot-ie7.css', File.join(@output, "fontrobot-ie7#{extension}"))
